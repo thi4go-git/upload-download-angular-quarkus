@@ -3,7 +3,7 @@ package com.dynns.cloudtecnologia.utils;
 
 import java.io.*;
 
-public class FileUtils {
+public class FileUtil {
 
 
     public static byte[] inputStreamToByteArray(InputStream inputStream) throws IOException {

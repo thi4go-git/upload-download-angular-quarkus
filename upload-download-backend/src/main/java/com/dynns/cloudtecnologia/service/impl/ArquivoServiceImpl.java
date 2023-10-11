@@ -5,13 +5,12 @@ import com.dynns.cloudtecnologia.model.entity.Arquivo;
 import com.dynns.cloudtecnologia.model.repository.ArquivoRepository;
 import com.dynns.cloudtecnologia.rest.dto.ArquivoDTO;
 import com.dynns.cloudtecnologia.service.ArquivoService;
-import com.dynns.cloudtecnologia.utils.FileUtils;
+import com.dynns.cloudtecnologia.utils.FileUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -30,7 +29,7 @@ public class ArquivoServiceImpl implements ArquivoService {
             Arquivo arquivo = new Arquivo();
             arquivo.setNome(quebraNome[0].trim());
             arquivo.setExtensao(quebraNome[1].trim());
-            arquivo.setArquivoByte(FileUtils.inputStreamToByteArray(arquivoDTO.getInputStream()));
+            arquivo.setArquivoByte(FileUtil.inputStreamToByteArray(arquivoDTO.getInputStream()));
 
             arquivoRepository.persist(arquivo);
             return arquivo;

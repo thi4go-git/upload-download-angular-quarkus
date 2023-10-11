@@ -1,7 +1,6 @@
 package com.dynns.cloudtecnologia.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,11 +23,4 @@ public class Arquivo {
     @Lob
     @Column(nullable = false)
     private byte[] arquivoByte;
-
-    public Arquivo(String nome, String extensao, byte[] arquivoByte) {
-        this.nome = nome;
-        this.extensao = extensao;
-        this.arquivoByte = arquivoByte;
-    }
-
 }

@@ -6,7 +6,7 @@ import com.dynns.cloudtecnologia.rest.dto.ArquivoDTO;
 import com.dynns.cloudtecnologia.rest.dto.ArquivoDownloadDTO;
 import com.dynns.cloudtecnologia.rest.mapper.ArquivoMapper;
 import com.dynns.cloudtecnologia.service.impl.ArquivoServiceImpl;
-import com.dynns.cloudtecnologia.utils.FileUtils;
+import com.dynns.cloudtecnologia.utils.FileUtil;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.ws.rs.*;
@@ -14,8 +14,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 
@@ -35,8 +33,8 @@ public class ArquivoController {
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(@MultipartForm ArquivoDTO arquivoDTO) {
-        //Arquivo novo = arquivoService.save(arquivoDTO);
-        return Response.ok(arquivoDTO.getInputStream()).build();
+        Arquivo arquivo = arquivoService.save(arquivoDTO);
+        return Response.ok().build();
     }
 
 
@@ -49,11 +47,14 @@ public class ArquivoController {
 
     @GET
     @Path("/{id}")
-    public Response getByteArquivo(
+    public Response downloadFile(
             @PathParam("id") @NotBlank(message = "O campo id é obrigatório!") final Long id
     ) {
         Arquivo arquivo = arquivoService.getById(id);
-        return Response.ok(arquivoMapper.arquivoToArquivoDownloadDTO(arquivo)).build();
+        ArquivoDTO novo = new ArquivoDTO();
+        novo.setNome(arquivo.getNome() + "." + arquivo.getExtensao());
+        novo.setInputStream(FileUtil.byteArrayToInputStream(arquivo.getArquivoByte()));
+        return Response.ok(novo).build();
     }
 
 

@@ -3,7 +3,7 @@ package com.dynns.cloudtecnologia.rest.mapper;
 import com.dynns.cloudtecnologia.model.entity.Arquivo;
 import com.dynns.cloudtecnologia.rest.dto.ArquivoDownloadDTO;
 import com.dynns.cloudtecnologia.rest.dto.ArquivoResponseDTO;
-import com.dynns.cloudtecnologia.utils.FileUtils;
+import com.dynns.cloudtecnologia.utils.FileUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.modelmapper.ModelMapper;
 
@@ -25,10 +25,10 @@ public class ArquivoMapper {
 
     public ArquivoDownloadDTO arquivoToArquivoDownloadDTO(Arquivo arquivo) {
         ModelMapper modelMapper = new ModelMapper();
-        ArquivoDownloadDTO dto = modelMapper.map(arquivo, ArquivoDownloadDTO.class);
-        dto.setInputStream(FileUtils.byteArrayToInputStream(arquivo.getArquivoByte()));
-        return dto;
+        ArquivoDownloadDTO arquivoDownloadDTO = modelMapper.map(arquivo, ArquivoDownloadDTO.class);
+        arquivoDownloadDTO.setInputStream(FileUtil.byteArrayToInputStream(arquivo.getArquivoByte()));
 
+        return arquivoDownloadDTO;
     }
 
 }

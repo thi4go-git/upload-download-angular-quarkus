@@ -1,6 +1,7 @@
 package com.dynns.cloudtecnologia.rest.dto;
 
 
+import jakarta.ws.rs.FormParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,7 @@ public class ArquivoDownloadDTO {
     private Long id;
     private String nome;
     private String extensao;
-    private InputStream inputStream;
+
+    @FormParam("arquivo") // Este nome deve corresponder ao nome do campo no FormData
+    private InputStream inputStream; // O arquivo será recebido como um InputStream
 }
