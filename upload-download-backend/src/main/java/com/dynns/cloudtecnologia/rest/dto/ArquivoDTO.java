@@ -10,4 +10,6 @@ public class ArquivoDTO {
     @FormParam("arquivo") // Este nome deve corresponder ao nome do campo no FormData
     public InputStream inputStream; // O arquivo será recebido como um InputStream
 
+    @FormParam("nome") // Este nome deve corresponder ao nome do campo no FormData
+    public String nome;
 }
