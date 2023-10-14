@@ -15,7 +15,6 @@ public class ArquivoDownloadDTO {
     private Long id;
     private String nome;
     private String extensao;
-
-    @FormParam("arquivo") // Este nome deve corresponder ao nome do campo no FormData
-    private InputStream inputStream; // O arquivo será recebido como um InputStream
+    private String type;
+    private byte[] arquivoByte;
 }

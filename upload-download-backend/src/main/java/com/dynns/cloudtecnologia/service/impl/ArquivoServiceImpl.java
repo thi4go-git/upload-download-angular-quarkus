@@ -30,7 +30,8 @@ public class ArquivoServiceImpl implements ArquivoService {
             arquivo.setNome(quebraNome[0].trim());
             arquivo.setExtensao(quebraNome[1].trim());
             arquivo.setArquivoByte(FileUtil.inputStreamToByteArray(arquivoDTO.getInputStream()));
-
+            arquivo.setType(arquivoDTO.getType());
+            
             arquivoRepository.persist(arquivo);
             return arquivo;
         } catch (IOException e) {

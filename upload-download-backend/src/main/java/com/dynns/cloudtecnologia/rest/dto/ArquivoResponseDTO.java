@@ -9,4 +9,5 @@ public class ArquivoResponseDTO {
     private Long id;
     private String nome;
     private String extensao;
+    private String type;
 }

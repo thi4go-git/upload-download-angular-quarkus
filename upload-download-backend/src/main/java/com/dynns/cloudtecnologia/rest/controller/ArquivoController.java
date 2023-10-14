@@ -33,7 +33,7 @@ public class ArquivoController {
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(@MultipartForm ArquivoDTO arquivoDTO) {
-        Arquivo arquivo = arquivoService.save(arquivoDTO);
+        arquivoService.save(arquivoDTO);
         return Response.ok().build();
     }
 
@@ -51,10 +51,7 @@ public class ArquivoController {
             @PathParam("id") @NotBlank(message = "O campo id é obrigatório!") final Long id
     ) {
         Arquivo arquivo = arquivoService.getById(id);
-        ArquivoDTO novo = new ArquivoDTO();
-        novo.setNome(arquivo.getNome() + "." + arquivo.getExtensao());
-        novo.setInputStream(FileUtil.byteArrayToInputStream(arquivo.getArquivoByte()));
-        return Response.ok(novo).build();
+        return Response.ok(arquivoMapper.arquivoToArquivoDownloadDTO(arquivo)).build();
     }
 
 

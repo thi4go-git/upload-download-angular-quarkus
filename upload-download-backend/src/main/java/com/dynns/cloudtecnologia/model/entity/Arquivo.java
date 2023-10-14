@@ -19,6 +19,7 @@ public class Arquivo {
 
     @Column(nullable = false, length = 5)
     private String extensao;
+    private String type;
 
     @Lob
     @Column(nullable = false)

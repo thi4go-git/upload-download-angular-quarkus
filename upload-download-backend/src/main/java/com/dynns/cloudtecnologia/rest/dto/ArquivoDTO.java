@@ -12,4 +12,7 @@ public class ArquivoDTO {
 
     @FormParam("nome") // Este nome deve corresponder ao nome do campo no FormData
     public String nome;
+
+    @FormParam("type") // Este type deve corresponder ao nome do campo type no FormData
+    private String type;
 }

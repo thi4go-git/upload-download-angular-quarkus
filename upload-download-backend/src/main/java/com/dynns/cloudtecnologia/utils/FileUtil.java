@@ -15,10 +15,4 @@ public class FileUtil {
         }
         return byteArrayOutputStream.toByteArray();
     }
-
-
-    public static InputStream byteArrayToInputStream(byte[] byteArray) {
-        return new ByteArrayInputStream(byteArray);
-    }
-
 }

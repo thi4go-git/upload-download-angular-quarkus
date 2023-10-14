@@ -25,10 +25,7 @@ public class ArquivoMapper {
 
     public ArquivoDownloadDTO arquivoToArquivoDownloadDTO(Arquivo arquivo) {
         ModelMapper modelMapper = new ModelMapper();
-        ArquivoDownloadDTO arquivoDownloadDTO = modelMapper.map(arquivo, ArquivoDownloadDTO.class);
-        arquivoDownloadDTO.setInputStream(FileUtil.byteArrayToInputStream(arquivo.getArquivoByte()));
-
-        return arquivoDownloadDTO;
+        return modelMapper.map(arquivo, ArquivoDownloadDTO.class);
     }
 
 }
