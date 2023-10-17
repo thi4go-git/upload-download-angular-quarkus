@@ -12,15 +12,15 @@ public class Arquivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idArquivo;
 
-    @Column(nullable = false)
-    private String nome;
+    @Column
+    private String nomeArquivo;
 
-    @Column(nullable = false, length = 100)
-    private String type;
+    @Column(length = 100)
+    private String typeArquivo;
 
     @Lob
-    @Column(nullable = false)
+    @Column
     private byte[] arquivo;
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ArquivoResponseDTO } from 'src/app/model/arquivoResponseDTO';
+import { LancamentoResponseDTO } from 'src/app/model/lancamentoResponseDTO';
 import { FileService } from 'src/app/services/file.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { ArquivoDownloadDTO } from 'src/app/model/arquivoDownloadDTO';
 import { Buffer } from 'buffer';
+import { ArquivoDownloaDTO } from 'src/app/model/arquivoDownloaDTO';
+
 
 
 @Component({
@@ -15,15 +16,30 @@ export class ConteudoComponent implements OnInit {
 
   constructor(private fileService: FileService) { }
 
-  displayedColumns: string[] = ['id', 'nome', 'type', 'download'];
-  arquivos: ArquivoResponseDTO[] = [];
-  dataSource: MatTableDataSource<ArquivoResponseDTO> = new MatTableDataSource;
+  displayedColumns: string[] = ['id', 'protocolo', 'dataLancamento', 'nomeArquivo', 'download'];
+  lancamentos: LancamentoResponseDTO[] = [];
+  dataSource: MatTableDataSource<LancamentoResponseDTO> = new MatTableDataSource;
 
   ngOnInit(): void {
     this.carregarLista();
   }
 
-  uploadFile(event: any) {
+
+  novoLancamento() {
+    this.fileService.newLancamento()
+      .subscribe({
+        next: (_resposta) => {
+          this.carregarLista();
+        },
+        error: (responseError) => {
+          console.log(responseError);
+          alert("Erro ao Salvar")
+        }
+      });
+  }
+
+
+  uploadFile(event: any, id: number) {
     const files = event.target.files;
     if (files) {
       const arquivo: File = files[0];
@@ -31,7 +47,7 @@ export class ConteudoComponent implements OnInit {
       formData.append("arquivo", arquivo);
       formData.append("nome", arquivo.name);
       formData.append("type", arquivo.type);
-      this.upload(formData);
+      this.upload(formData, id);
     } else {
       alert("Selecione um arquivo")
     }
@@ -39,11 +55,11 @@ export class ConteudoComponent implements OnInit {
 
 
   private carregarLista() {
-    this.fileService.getAll()
+    this.fileService.listAll()
       .subscribe({
         next: (resposta) => {
-          this.arquivos = resposta;
-          this.dataSource = new MatTableDataSource(this.arquivos);
+          this.lancamentos = resposta;
+          this.dataSource = new MatTableDataSource(this.lancamentos);
         },
         error: (responseError) => {
           console.log(responseError);
@@ -52,10 +68,11 @@ export class ConteudoComponent implements OnInit {
       });
   }
 
-  private upload(formData: FormData) {
-    this.fileService.uploadFile(formData)
+  private upload(formData: FormData, id: number) {
+    this.fileService.uploadFile(formData, id)
       .subscribe({
         next: (_resposta) => {
+          alert("Sucesso UPLOAD")
           this.carregarLista();
         },
         error: (responseError) => {
@@ -115,11 +132,11 @@ export class ConteudoComponent implements OnInit {
     }
   }
 
-  private saveByteArray(arquivo: ArquivoDownloadDTO, byte: any) {
-    var blob = new Blob([byte], { type: arquivo.type });
+  private saveByteArray(arquivo: ArquivoDownloaDTO, byte: any) {
+    var blob = new Blob([byte], { type: arquivo.typeArquivo });
     var link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    var fileName = arquivo.nome;
+    var fileName = arquivo.nomeArquivo;
     link.download = fileName;
     link.click();
   }

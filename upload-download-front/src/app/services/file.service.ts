@@ -1,28 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ArquivoResponseDTO } from '../model/arquivoResponseDTO';
 import { environment } from '../environments/environment';
-import { ArquivoDownloadDTO } from '../model/arquivoDownloadDTO';
+import { LancamentoResponseDTO } from '../model/lancamentoResponseDTO';
+import { ArquivoDownloaDTO } from '../model/arquivoDownloaDTO';
 
 
 @Injectable({ providedIn: 'root' })
 export class FileService {
 
-  urlBackend: string = environment.apiUrl + '/file';
+  urlBackend: string = environment.apiUrl + '/lancamentos';
 
   constructor(private http: HttpClient) { }
 
-  uploadFile(formData: FormData): Observable<any> {
-    return this.http.post(this.urlBackend + '/upload', formData, { responseType: 'blob' });
+  newLancamento(): Observable<LancamentoResponseDTO> {
+    return this.http.post<LancamentoResponseDTO>(this.urlBackend + '/', new LancamentoResponseDTO());
   }
 
-  getAll(): Observable<ArquivoResponseDTO[]> {
-    return this.http.get<ArquivoResponseDTO[]>(this.urlBackend + '/list');
+
+  uploadFile(formData: FormData, id: number): Observable<any> {
+    return this.http.post(this.urlBackend + '/' + id + '/upload', formData, { responseType: 'blob' });
   }
 
-  downloadFile(id: number): Observable<ArquivoDownloadDTO> {
-    return this.http.get<ArquivoDownloadDTO>(this.urlBackend + '/' + id);
+  listAll(): Observable<LancamentoResponseDTO[]> {
+    return this.http.get<LancamentoResponseDTO[]>(this.urlBackend + '/list');
+  }
+
+  downloadFile(id: number): Observable<ArquivoDownloaDTO> {
+    return this.http.get<ArquivoDownloaDTO>(this.urlBackend + '/' + id + '/download');
   }
 
 }

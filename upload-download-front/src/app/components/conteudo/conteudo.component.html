@@ -4,8 +4,8 @@
         <mat-card-subtitle>Selecione um arquivo.</mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-        <form (submit)="uploadFile($event)">
-            <input type="file" name="arquivo" (change)="uploadFile($event)" />
+        <form>
+            <button (click)="novoLancamento()">New Lancamento</button>
         </form>
     </mat-card-actions>
 </mat-card>
@@ -16,24 +16,38 @@
         class="col-md-12 table-responsive mat-elevation-z8 table table-condensed table-hover table-striped">
 
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> id Arquivo </th>
-            <td mat-cell *matCellDef="let arquivo"> {{ arquivo.id }} </td>
+            <th mat-header-cell *matHeaderCellDef> id </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.id }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef> Nome Arquivo </th>
-            <td mat-cell *matCellDef="let arquivo"> {{ arquivo.nome }} </td>
+        <ng-container matColumnDef="protocolo">
+            <th mat-header-cell *matHeaderCellDef> protocolo </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.protocolo }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef> Type Arquivo</th>
-            <td mat-cell *matCellDef="let arquivo"> {{ arquivo.type }} </td>
+
+        <ng-container matColumnDef="dataLancamento">
+            <th mat-header-cell *matHeaderCellDef> dataLancamento </th>
+            <td mat-cell *matCellDef="let lancamento"> {{ lancamento.dataLancamento }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomeArquivo">
+            <th mat-header-cell *matHeaderCellDef> Arquivo </th>
+            <td mat-cell *matCellDef="let lancamento">
+                <div *ngIf="lancamento.nomeArquivo">
+                    {{ lancamento.nomeArquivo }}
+                </div>
+                <div *ngIf="!lancamento.nomeArquivo">
+                    <input type="file" name="arquivo" (change)="uploadFile($event,lancamento.id)" />
+                </div>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="download">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let arquivo">
-                <mat-icon class="cursorMao" (click)="baixar(arquivo.id)">get_app</mat-icon>
+            <td mat-cell *matCellDef="let lancamento">
+                <mat-icon *ngIf="lancamento.nomeArquivo" class="cursorMao"
+                    (click)="baixar(lancamento.id)">get_app</mat-icon>
             </td>
         </ng-container>
 

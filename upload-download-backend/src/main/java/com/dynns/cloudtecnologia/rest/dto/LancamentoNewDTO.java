@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ArquivoResponseDTO {
-    private Long id;
-    private String nome;
-    private String type;
+@NoArgsConstructor
+public class LancamentoNewDTO {
+    private String protocolo;
 }
