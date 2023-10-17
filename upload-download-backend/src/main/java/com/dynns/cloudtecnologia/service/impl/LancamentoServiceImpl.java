@@ -5,7 +5,6 @@ import com.dynns.cloudtecnologia.exception.GeralException;
 import com.dynns.cloudtecnologia.model.entity.Arquivo;
 import com.dynns.cloudtecnologia.model.entity.Lancamento;
 import com.dynns.cloudtecnologia.model.repository.LancamentoRepository;
-import com.dynns.cloudtecnologia.rest.dto.ArquivoDownloaDTO;
 import com.dynns.cloudtecnologia.rest.dto.ArquivoUploadDTO;
 import com.dynns.cloudtecnologia.rest.mapper.LancamentoMapper;
 import com.dynns.cloudtecnologia.service.LancamentoService;
@@ -14,7 +13,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-
 import java.io.IOException;
 import java.util.List;
 
