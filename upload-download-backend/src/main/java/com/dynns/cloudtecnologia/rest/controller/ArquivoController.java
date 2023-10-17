@@ -2,11 +2,9 @@ package com.dynns.cloudtecnologia.rest.controller;
 
 
 import com.dynns.cloudtecnologia.model.entity.Arquivo;
-import com.dynns.cloudtecnologia.rest.dto.ArquivoDTO;
-import com.dynns.cloudtecnologia.rest.dto.ArquivoDownloadDTO;
+import com.dynns.cloudtecnologia.rest.dto.ArquivoUploadDTO;
 import com.dynns.cloudtecnologia.rest.mapper.ArquivoMapper;
 import com.dynns.cloudtecnologia.service.impl.ArquivoServiceImpl;
-import com.dynns.cloudtecnologia.utils.FileUtil;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.ws.rs.*;
@@ -32,8 +30,8 @@ public class ArquivoController {
     @POST
     @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(@MultipartForm ArquivoDTO arquivoDTO) {
-        arquivoService.save(arquivoDTO);
+    public Response uploadFile(@MultipartForm ArquivoUploadDTO arquivoUploadDTO) {
+        arquivoService.save(arquivoUploadDTO);
         return Response.ok().build();
     }
 

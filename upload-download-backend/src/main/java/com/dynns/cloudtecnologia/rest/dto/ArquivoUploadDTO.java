@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.InputStream;
 
 @Data
-public class ArquivoDTO {
+public class ArquivoUploadDTO {
     @FormParam("arquivo") // Este nome deve corresponder ao nome do campo no FormData
     public InputStream inputStream; // O arquivo será recebido como um InputStream
 

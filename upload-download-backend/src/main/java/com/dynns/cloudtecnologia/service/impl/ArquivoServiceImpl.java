@@ -3,7 +3,7 @@ package com.dynns.cloudtecnologia.service.impl;
 import com.dynns.cloudtecnologia.exception.GeralException;
 import com.dynns.cloudtecnologia.model.entity.Arquivo;
 import com.dynns.cloudtecnologia.model.repository.ArquivoRepository;
-import com.dynns.cloudtecnologia.rest.dto.ArquivoDTO;
+import com.dynns.cloudtecnologia.rest.dto.ArquivoUploadDTO;
 import com.dynns.cloudtecnologia.service.ArquivoService;
 import com.dynns.cloudtecnologia.utils.FileUtil;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -23,20 +23,17 @@ public class ArquivoServiceImpl implements ArquivoService {
 
     @Override
     @Transactional
-    public Arquivo save(ArquivoDTO arquivoDTO) {
-        String[] quebraNome = arquivoDTO.getNome().split("\\.");
+    public Arquivo save(ArquivoUploadDTO arquivoUploadDTO) {
+        Arquivo arquivo = new Arquivo();
+        arquivo.setNome(arquivoUploadDTO.getNome());
         try {
-            Arquivo arquivo = new Arquivo();
-            arquivo.setNome(quebraNome[0].trim());
-            arquivo.setExtensao(quebraNome[1].trim());
-            arquivo.setArquivoByte(FileUtil.inputStreamToByteArray(arquivoDTO.getInputStream()));
-            arquivo.setType(arquivoDTO.getType());
-            
-            arquivoRepository.persist(arquivo);
-            return arquivo;
+            arquivo.setArquivo(FileUtil.inputStreamToByteArray(arquivoUploadDTO.getInputStream()));
+            arquivo.setType(arquivoUploadDTO.getType());
         } catch (IOException e) {
-            throw new GeralException("Erro ao converter InputStream to Byte[]");
+            throw new GeralException("Erro ao converter InputStream to ByteArray[]");
         }
+        arquivoRepository.persist(arquivo);
+        return arquivo;
     }
 
     @Override

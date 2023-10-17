@@ -17,11 +17,10 @@ public class Arquivo {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 5)
-    private String extensao;
+    @Column(nullable = false, length = 100)
     private String type;
 
     @Lob
     @Column(nullable = false)
-    private byte[] arquivoByte;
+    private byte[] arquivo;
 }
