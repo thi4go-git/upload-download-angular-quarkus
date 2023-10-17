@@ -16,27 +16,22 @@
         class="col-md-12 table-responsive mat-elevation-z8 table table-condensed table-hover table-striped">
 
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> id. </th>
+            <th mat-header-cell *matHeaderCellDef> id Arquivo </th>
             <td mat-cell *matCellDef="let arquivo"> {{ arquivo.id }} </td>
         </ng-container>
 
         <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <th mat-header-cell *matHeaderCellDef> Nome Arquivo </th>
             <td mat-cell *matCellDef="let arquivo"> {{ arquivo.nome }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="extensao">
-            <th mat-header-cell *matHeaderCellDef> Extensão </th>
-            <td mat-cell *matCellDef="let arquivo"> {{ arquivo.extensao }} </td>
-        </ng-container>
-
         <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef> Type </th>
+            <th mat-header-cell *matHeaderCellDef> Type Arquivo</th>
             <td mat-cell *matCellDef="let arquivo"> {{ arquivo.type }} </td>
         </ng-container>
 
         <ng-container matColumnDef="download">
-            <th mat-header-cell *matHeaderCellDef> Baixar </th>
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let arquivo">
                 <mat-icon class="cursorMao" (click)="baixar(arquivo.id)">get_app</mat-icon>
             </td>

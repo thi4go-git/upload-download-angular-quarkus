@@ -3,7 +3,6 @@ import { ArquivoResponseDTO } from 'src/app/model/arquivoResponseDTO';
 import { FileService } from 'src/app/services/file.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ArquivoDownloadDTO } from 'src/app/model/arquivoDownloadDTO';
-import { ArquivoDTO } from 'src/app/model/arquivoDTO';
 import { Buffer } from 'buffer';
 
 
@@ -16,7 +15,7 @@ export class ConteudoComponent implements OnInit {
 
   constructor(private fileService: FileService) { }
 
-  displayedColumns: string[] = ['id', 'nome', 'extensao', 'type', 'download'];
+  displayedColumns: string[] = ['id', 'nome', 'type', 'download'];
   arquivos: ArquivoResponseDTO[] = [];
   dataSource: MatTableDataSource<ArquivoResponseDTO> = new MatTableDataSource;
 
@@ -72,7 +71,7 @@ export class ConteudoComponent implements OnInit {
     this.fileService.downloadFile(id)
       .subscribe({
         next: (resposta) => {
-          const sampleArr = this.base64ToArrayBufferAngular16(resposta.arquivoByte);
+          const sampleArr = this.base64ToArrayBufferAngular16(resposta.arquivo);
           this.saveByteArray(resposta, sampleArr);
         },
         error: (responseError) => {
@@ -80,19 +79,6 @@ export class ConteudoComponent implements OnInit {
           alert("Erro ao Obter Arquivo do banco de dados!")
         }
       });
-  }
-
-
-  private downloadFile(arquivo: ArquivoDTO) {
-    // Para baixar diretamente um arquivo File
-    const blob = new Blob([arquivo.inputStream], { type: 'application/octet-stream' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = arquivo.nome;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
   }
 
 
@@ -133,7 +119,7 @@ export class ConteudoComponent implements OnInit {
     var blob = new Blob([byte], { type: arquivo.type });
     var link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    var fileName = arquivo.nome + '.' + arquivo.extensao;
+    var fileName = arquivo.nome;
     link.download = fileName;
     link.click();
   }

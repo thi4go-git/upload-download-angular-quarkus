@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArquivoResponseDTO } from '../model/arquivoResponseDTO';
-import { ArquivoDTO } from '../model/arquivoDTO';
 import { environment } from '../environments/environment';
 import { ArquivoDownloadDTO } from '../model/arquivoDownloadDTO';
 
